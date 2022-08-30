@@ -1,10 +1,35 @@
+class ProductList extends React.Component {
+  render() {
+    const products = Seed.products.sort((a, b) => (
+        b.votes - a.votes
+    ));
+    const productComponents = products.map((product) => (
+        <Product
+            key={'product-' + product.id}
+            id={product.id}
+            title={product.title}
+            description={product.description}
+            url={product.url}
+            votes={product.votes}
+            submitterAvatarUrl={product.submitterAvatarUrl}
+            productImageUrl={product.productImageUrl}
+        />
+    ));
+    return (
+        <div className="ui unstackable items">
+          {productComponents}
+        </div>
+    );
+  }
+}
+
 class Product extends React.Component {
   render() {
     return (
         <div className="item">
           <div className="image">
             <img
-                src={ this.props.productImageUrl }
+                src={this.props.productImageUrl}
                 alt="aqua"
             />
           </div>
@@ -14,40 +39,21 @@ class Product extends React.Component {
               <a href="#">
                 <i className="large caret up icon"/>
               </a>
-              { this.props.votes }
+              {this.props.votes}
             </div>
             <div className="description">
-              <a href={ this.props.url }>{ this.props.title }</a>
-              <p>{ this.props.description }</p>
+              <a href={this.props.url}>{this.props.title}</a>
+              <p>{this.props.description}</p>
             </div>
             <div className="extra">
               <span>Submitted by:</span>
               <img
                   className="ui avatar image"
-                  src={ this.props.submitterAvatarUrl }
+                  src={this.props.submitterAvatarUrl}
                   alt="avatar"
               />
             </div>
           </div>
-        </div>
-    );
-  }
-}
-
-class ProductList extends React.Component {
-  render() {
-    const product = Seed.products[0];
-    return (
-        <div className="ui unstackable items">
-          <Product
-              id={ product.id }
-              title={ product.title }
-              description={ product.description }
-              url={ product.url }
-              votes={ product.votes }
-              submitterAvatarUrl={ product.submitterAvatarUrl }
-              productImageUrl={ product.productImageUrl }
-          />
         </div>
     );
   }
